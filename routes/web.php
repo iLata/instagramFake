@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('upload','controladorBD@create')->name('image.create'); //Se necesita agregar controlador para verificar que tenga sesión iniciada antes.
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home','controladorBD@index')->name('home.index');
+
+Route::post('imagenes', 'controladorBD@store')->name('imagenes.store');
