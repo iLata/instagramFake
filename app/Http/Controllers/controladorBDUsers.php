@@ -8,7 +8,7 @@ use App\Http\Requests\requestValidador;
 use DB;
 use Carbon\Carbon;
 
-class controladorBD extends Controller
+class controladorBDUsers extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class controladorBD extends Controller
      */
     public function index()
     {
-        $consultaImagenes=DB::table('imagenes')->get();
-        return view('home', compact('consultaImagenes'));
+        $consultaUsuarios=DB::table('users')->get();
+        return view('users', compact('consultaUsuarios'));
     }
 
     /**
@@ -28,7 +28,7 @@ class controladorBD extends Controller
      */
     public function create()
     {
-        return view('upload');
+        //
     }
 
     /**
@@ -37,15 +37,9 @@ class controladorBD extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(requestValidador $request)
+    public function store(Request $request)
     {
-        DB::table('imagenes')->insert([
-            "URL" => $request->file('url')->store('public'),
-            "USERID" => $request->input('userid'),
-            "created_at" => Carbon::now(),
-            "updated_at" => Carbon::now(),
-        ]);
-        return redirect('home')->with('guardado','Img guardado en BD');
+        //
     }
 
     /**
@@ -56,8 +50,7 @@ class controladorBD extends Controller
      */
     public function show($id)
     {
-        $consultaImagenesPersonalizada=DB::table('imagenes')->where('userid',$id)->get();
-        return view('galery',compact('consultaImagenesPersonalizada'));
+        //
     }
 
     /**
@@ -91,6 +84,7 @@ class controladorBD extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('users')->where('id',$id)->delete();
+        return redirect()->route('users.index')->with('eliminado','Se eliminó el usuario');
     }
 }

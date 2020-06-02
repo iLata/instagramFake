@@ -18,6 +18,13 @@ Route::get('/', function () {
 });
 
 Route::get('upload','controladorBD@create')->name('image.create'); //Se necesita agregar controlador para verificar que tenga sesión iniciada antes.
+Route::get('galery/{id}','controladorBD@show')->name('image.show'); //Se necesita agregar controlador para verificar que tenga sesión iniciada antes.
+
+Route::get('users','controladorBDUsers@index')->name('users.index');
+Route::get('images','controladorBDImages@index')->name('images.index');
+
+Route::get('users/{id}', 'controladorBDUsers@destroy')->name('users.destroy');
+Route::get('images/{id}', 'controladorBDImages@destroy')->name('images.destroy');
 
 Auth::routes();
 
